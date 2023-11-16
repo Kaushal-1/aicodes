@@ -1,0 +1,53 @@
+
+mysql> create database ass5;
+
+mysql> create table borrower(rollin int(11),name char(20),dateofissue date,bname char(20),status char(1));
+
+
+mysql> create table borrower(rollin int(11),name char(20),dateofissue date,bname char(20),status char(1));
+
+
+desc borrower;
+
+create table borrower(rollin int(11) ,primary key(rollin),name char(20),dateofissue date,bname char(20),status char(1));
+
+desc borrower;
+
+create table fine(rollno int(11),fdate date,amt int(11));
+create table fine(rollno int(11),primary key(rollno),fdate date,amt int(11));
+
+insert into borrower values(2,'b','2020-10-15','networking','I'),(3,'c','2020-10-01','dbms','I'),(4,'d','2020-09-22','CN','I');
+
+
+
+
+delimeter $
+create procedure fine_calculation(IN rno int(3),bname char(20))
+begin
+declare i_date date;
+declare fine_amt;
+declare fine_amt int;
+declare exit handler for sqlexception select 'Table not found';
+select dateofissue into i_date from borrower where  rollin=rno and bname=bname;
+select datediff(curdate(),i_date) into diff;
+if(diff>15 and diff<=30) then
+set fine_amt = diff*5;
+insert into fine values(rno,curdate(),fine_amt);
+elseif(diff>30) then 
+set fine_amt =15*5 +(diff-30)*50;
+insert into fine values(rno,curdate(),fine_amt);
+end if;
+update borrower set status ='R' where rollin=rno and bname=bname;
+end;
+$
+
+
+delimeter ;
+call fine_calculation(3,'dbms');
+
+
+select * from fine;
+
+select * from borrower;
+
+15 *5 +(35-30)*50;

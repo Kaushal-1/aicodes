@@ -1,0 +1,46 @@
+create database ass3;
+
+use ass3;
+
+create table emp(emp_id int primary key auto_increment,emp_name char(20) not null,emp_lname char(20) not null,emp_salary int,join_date date);
+
+desc emp;
+
+insert into emp values(1,'ram','koopor',20000,'2015-01-03');
+insert into emp values(null,'shyam','noor',10000,'2015-05-08');
+insert into emp values(null,'rohandas','pure',70000,'2015-02-04');
+
+ select * from emp;
+
+update emp set emp_salary=20000 where emp_id=3;
+
+select * from emp;
+
+delete from emp where emp_id=3;
+
+select * from emp;
+
+ insert into emp values(null,'rohandas','pure',70000,'2015-02-04');
+
+ select avg(emp_salary) from emp;
+
+select * from emp;
+
+select concat(emp_name,emp_lname) from emp where emp_salary in (select max(emp_salary)from emp);
+
+
+select upper(concat(emp_name,emp_lname)) from emp where emp_salary in (select max(emp_salary)from emp);
+
+select * from emp where year(join_date)='2015';
+select * from emp where year(join_date)='2016';
+
+select * from emp where emp_name like'r%';
+
+select * from emp where emp_id in (1,2,4);
+
+select * from emp where year (join_date) between '2013' and '2015';
+
+
+
+
+

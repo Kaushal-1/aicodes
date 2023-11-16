@@ -1,0 +1,60 @@
+create database ass4;
+
+use ass4;
+
+create table student(roll_no int primary key,name char(20),address char(40),phone int(10),age int(2));
+
+desc student;
+
+insert into student values (1,'harsh','delhi',1212121,18);
+
+ insert into student values (2,'vikash','punjab',13131313,19),(3,'priyanksa','buldana',14141414,20);
+
+insert into student values (4,'bhavna','jadgav',1010101010,16),(5,'priti','pune',15151515,21);
+
+ select * from student;
+
+create table studentcourse(cid int(1),roll_no int,foreign key(roll_no) references student(roll_no));
+
+desc studentcourse;
+
+insert into studentcourse values(1,1);
+insert into studentcourse values(2,2);
+insert into studentcourse values(2,3);
+insert into studentcourse values(3,4);
+insert into studentcourse values(1,5);
+insert into studentcourse values(5,4);
+
+select * from studentcourse;
+
+select * from student inner join studentcourse on student.roll_no=stu
+dentcourse.roll_no;
+
+select * from student left join studentcourse on student.roll_no=studentcourse.roll_no;
+
+
+insert into student values (8,'krish','jadgyav',1010101010,06),(7,'pttriti','pune',15151515,21);
+
+select * from student left join studentcourse on student.roll_no=studentcourse.roll_no;
+
+select * from student right join studentcourse on student.roll_no=studentcourse.roll_no;
+
+select * from student left join studentcourse on student.roll_no=studentcourse.roll_no union select * from student right join studentcourse on student.roll_no=studentcourse.roll_no;
+
+select * from student;
+
+select a.name,b.roll_no from student a,student b where a.age<b.age;
+
+
+select a.name,b.roll_no from student a,student b where a.age<b.age order by a.name;
+
+
+#SUB QUERY
+create view  newview as select student.name,student.roll_no,studentcourse.cid  from student left join studentcourse on student.roll_no=studentcourse.roll_no;
+
+
+
+select * from newview;
+
+select * from student where roll_no in
+    -> (select roll_no from studentcourse);
